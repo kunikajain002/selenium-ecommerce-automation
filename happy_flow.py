@@ -4,16 +4,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 Options_webdriver = webdriver.ChromeOptions()
-
-# prefs = {
-#     "credentials_enable_service": False,
-#     "profile.password_manager_enabled": False
-# }
-#
-# Options_webdriver.add_experimental_options("prefs", prefs)
-# Options_webdriver.add_argument("--disable-save-password-bubble")
-# Options_webdriver.add_argument("--disable-notifications")
-# Options_webdriver.add_argument("--diable-popup-blocking")
 Options_webdriver.add_argument("--guest")
 
 driver = webdriver.Chrome(options = Options_webdriver)
