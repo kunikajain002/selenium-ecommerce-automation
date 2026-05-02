@@ -1,19 +1,13 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from login_page import login
 
 def test_checkout(setup):
     driver = setup
     wait = WebDriverWait(driver, 10)
-    driver.get("https://www.saucedemo.com/")
-    print(driver.title)
 
-    # Login
-    wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@id='user-name']"))).send_keys("standard_user")
-    driver.find_element(By.XPATH, "//input[@id='password']").send_keys("secret_sauce")
-    driver.find_element(By.XPATH, "//input[@id='login-button']").click()
-
-    assert "inventory" in driver.current_url  # Validates the login success
+    login(driver)
 
     # Add product by searching the product name
     product_name = wait.until(EC.visibility_of_element_located((By.XPATH, "//div[text() = 'Sauce Labs Backpack']")))
