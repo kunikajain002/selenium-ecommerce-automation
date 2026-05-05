@@ -1,9 +1,12 @@
 import time
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class CheckOut:
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(driver,10)
 
     checkout = (By.XPATH, "//button[text()= 'Checkout']")
     first_name = (By.XPATH, "//input[@id = 'first-name']")
@@ -17,18 +20,18 @@ class CheckOut:
     logout = (By.XPATH, "//a[text() = 'Logout']")
 
     def checkout_cart(self):
-        self.driver.find_element(*self.checkout).click()
+        self.wait.until(EC.element_to_be_clickable(self.checkout)).click()
 
     def checkout_info(self, first, last, zip):
-        self.driver.find_element(*self.first_name).send_keys(first)
+        self.wait.until(EC.visibility_of_element_located(self.first_name)).send_keys(first)
         self.driver.find_element(*self.last_name).send_keys(last)
         self.driver.find_element(*self.postal_code).send_keys(zip)
 
     def checkout_continue(self):
-        self.driver.find_element(*self.continue_btn).click()
+        self.wait.until(EC.element_to_be_clickable(self.continue_btn)).click()
 
     def checkout_overview(self):
-        self.driver.find_element(*self.finish_btn).click()
+        self.wait.until(EC.element_to_be_clickable(self.finish_btn)).click()
 
     def validation(self):
         # Validate order completion
@@ -39,5 +42,4 @@ class CheckOut:
         self.driver.find_element(*self.back_home).click()
         # logout
         self.driver.find_element(*self.menu).click()
-        time.sleep(2)
-        self.driver.find_element(*self.logout).click()
+        self.wait.until(EC.element_to_be_clickable(self.logout)).click()
