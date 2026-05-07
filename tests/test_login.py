@@ -9,3 +9,4 @@ def test_login(setup):
     lp.login("standard_user","secret_sauce")
 
     assert "inventory" in driver.current_url  # Validates the login success
+    # to get reports run pytest -v (on Terminal)
